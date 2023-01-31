@@ -6,17 +6,17 @@ export const Container = styled.div`
   padding: 10px;
   display: flex;
   align-items: center;
+`;
 
-  .image {
-    margin-right: 5px;
-  }
+export const Image = styled.image`
+  margin-right: 5px;
+`;
 
-  input {
-    border: 0px;
-    background:transparent;
-    outline: 0;
-    color: #FFF;
-    font-size: 18px;
-    flex: 1;
-  }
+export const Input = styled.input`
+  border: 0px;
+  background: transparent;
+  outline: 0;
+  color: #fff;
+  font-size: 18px;
+  flex: 1;
 `;

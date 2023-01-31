@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addDone } from "../../redux/todoSlice";
 import { Item } from "../../types/Item";
 import * as C from "./Styles";
 
@@ -7,15 +9,18 @@ type ListItemProps = {
 };
 
 export default function ListItem({ item }: ListItemProps) {
-  const [isChecked, setIsChecked] = useState(item.done);
+  const dispatch = useDispatch();
+  const isChecked = () => {
+    dispatch(addDone(item.id));
+  };
 
   return (
-    <C.Container done={isChecked}>
-      <input
+    <C.Container done={item.done}>
+      <C.Input
         type="checkbox"
-        checked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
-      ></input>
+        checked={item.done}
+        onChange={isChecked}
+      ></C.Input>
       <label>{item.name}</label>
     </C.Container>
   );

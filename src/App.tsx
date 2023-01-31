@@ -1,19 +1,17 @@
-import { FC, useState } from "react";
+import { FC, Key, useState } from "react";
 import * as C from "./App.styles";
 import { Item } from "./types/Item";
 import ListItem from "./components/ListItem";
 import AddArea from "./components/AddArea";
 
-const App: FC = () => {
-  const [list, setList] = useState<Item[]>([
-    { id: 2, name: "Comprar ovos", done: false },
-    { id: 1, name: "Comprar frango", done: true },
-  ]);
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo, useTodos } from "./redux/todoSlice";
 
-  const handleAddTAsk = (taskName: string) => {
-    let newList = [...list];
-    newList.push({ id: list.length + 1, name: taskName, done: false });
-    setList(newList);
+const App: FC = () => {
+  const dispatch = useDispatch();
+  const todos = useSelector(useTodos);
+  const handleAddTask = (taskName: string) => {
+    dispatch(addTodo({ name: taskName }));
   };
 
   return (
@@ -21,9 +19,11 @@ const App: FC = () => {
       <C.Area>
         <C.Header>Lista de tarefas</C.Header>
 
-        <AddArea onEnter={handleAddTAsk}/>
+        {/* area de add novas tarefas */}
+        <AddArea onEnter={handleAddTask} />
 
-        {list.map((item, index) => (
+        {/* lista de tarefas */}
+        {todos.map((item: Item, index: Key) => (
           <ListItem key={index} item={item} />
         ))}
       </C.Area>
